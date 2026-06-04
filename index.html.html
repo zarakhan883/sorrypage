@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>I'm Sorry — From the Heart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    :root {
+      --warm-cream: #fdf6ec;
+      --blush: #f7c5a0;
+      --rose: #e8826b;
+      --deep: #3b2a2a;
+      --muted: #7a5c5c;
+      --gold: #d4a853;
+      --soft-white: #fffaf5;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--warm-cream);
+      font-family: 'Lato', sans-serif;
+      color: var(--deep);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ─────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: linear-gradient(160deg, #fff5eb 0%, #fde8d8 50%, #fcd4c0 100%);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e8826b' fill-opacity='0.06'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* floating petals */
+    .petal {
+      position: absolute;
+      width: 18px;
+      height: 28px;
+      background: var(--blush);
+      border-radius: 60% 40% 60% 40% / 70% 30% 70% 30%;
+      opacity: 0;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0%   { transform: translateY(-80px) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.7; }
+      90%  { opacity: 0.5; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    .hero-inner { position: relative; z-index: 2; text-align: center; padding: 3rem 1.5rem; }
+
+    .sorry-badge {
+      display: inline-block;
+      background: var(--rose);
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.45rem 1.4rem;
+      border-radius: 2rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-weight: 700;
+      color: var(--deep);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--rose);
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 3vw, 1.25rem);
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 500px;
+      margin: 1.5rem auto 0;
+      line-height: 1.7;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .scroll-hint span { font-size: 1.5rem; }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── HEARTBEAT LINE ───────────────────────────────── */
+    .heartbeat-section {
+      background: var(--deep);
+      padding: 4rem 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .heartbeat-track {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      animation: slide 12s linear infinite;
+      white-space: nowrap;
+      width: max-content;
+    }
+    @keyframes slide {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .heartbeat-word {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--blush);
+      opacity: 0.7;
+      flex-shrink: 0;
+    }
+    .heartbeat-sep {
+      color: var(--rose);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    /* ── LETTER SECTION ───────────────────────────────── */
+    .letter-section {
+      background: var(--soft-white);
+      padding: 7rem 0;
+    }
+
+    .letter-card {
+      background: #fff;
+      border-radius: 2px;
+      padding: 4rem 3.5rem;
+      box-shadow: 0 2px 60px rgba(59,42,42,0.08), 0 0 0 1px rgba(212,168,83,0.2);
+      position: relative;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .letter-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 3rem; right: 3rem;
+      height: 4px;
+      background: linear-gradient(90deg, var(--rose), var(--gold));
+      border-radius: 0 0 4px 4px;
+    }
+
+    .letter-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .letter-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--deep);
+      margin-bottom: 2rem;
+      border-bottom: 1px solid rgba(212,168,83,0.3);
+      padding-bottom: 1.2rem;
+    }
+
+    .letter-body p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: #5a3e3e;
+      margin-bottom: 1.4rem;
+      font-weight: 300;
+    }
+
+    .letter-body p strong {
+      font-weight: 700;
+      color: var(--rose);
+    }
+
+    .letter-sign {
+      margin-top: 2.5rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--rose);
+    }
+
+    /* ── REASONS GRID ─────────────────────────────────── */
+    .reasons-section {
+      background: var(--warm-cream);
+      padding: 7rem 0;
+    }
+
+    .section-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      color: var(--deep);
+      line-height: 1.2;
+      margin-bottom: 3.5rem;
+    }
+
+    .reason-card {
+      background: #fff;
+      border: 1px solid rgba(232,130,107,0.2);
+      border-radius: 12px;
+      padding: 2rem 1.8rem;
+      height: 100%;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reason-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--rose), var(--gold));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+
+    .reason-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(59,42,42,0.10); }
+    .reason-card:hover::after { transform: scaleX(1); }
+
+    .reason-icon { font-size: 2.4rem; margin-bottom: 1rem; }
+    .reason-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--deep);
+      margin-bottom: 0.6rem;
+    }
+    .reason-card p {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    /* ── PROMISE SECTION ──────────────────────────────── */
+    .promise-section {
+      background: var(--deep);
+      padding: 7rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .promise-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(232,130,107,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .promise-section .section-title { color: var(--warm-cream); }
+    .promise-section .section-eyebrow { color: var(--gold); }
+
+    .promise-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(253,246,236,0.08);
+    }
+    .promise-item:last-child { border-bottom: none; }
+
+    .promise-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-style: italic;
+      color: var(--rose);
+      line-height: 1;
+      min-width: 2rem;
+    }
+
+    .promise-text h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--warm-cream);
+      margin-bottom: 0.3rem;
+    }
+
+    .promise-text p {
+      font-size: 0.9rem;
+      color: rgba(253,246,236,0.6);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── BIG CTA ──────────────────────────────────────── */
+    .cta-section {
+      background: linear-gradient(160deg, #fde8d8 0%, #fff5eb 100%);
+      padding: 8rem 0;
+      text-align: center;
+    }
+
+    .big-heart {
+      font-size: 5rem;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.18); }
+    }
+
+    .cta-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 6vw, 4rem);
+      color: var(--deep);
+      margin: 1.5rem 0;
+      line-height: 1.15;
+    }
+
+    .cta-section p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .btn-sorry {
+      display: inline-block;
+      background: var(--rose);
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 1rem 2.8rem;
+      border-radius: 2rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+      box-shadow: 0 6px 24px rgba(232,130,107,0.38);
+    }
+    .btn-sorry:hover {
+      background: #d46950;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(232,130,107,0.45);
+      color: #fff;
+    }
+
+    /* ── FOOTER ───────────────────────────────────────── */
+    footer {
+      background: var(--deep);
+      padding: 2.5rem 0;
+      text-align: center;
+    }
+
+    footer p {
+      color: rgba(253,246,236,0.35);
+      font-size: 0.82rem;
+      letter-spacing: 0.05em;
+    }
+
+    footer span { color: var(--rose); }
+
+    /* ── ANIMATIONS ───────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* modal */
+    #forgivenModal .modal-content {
+      border-radius: 16px;
+      border: none;
+      text-align: center;
+      padding: 3rem 2.5rem;
+      background: var(--soft-white);
+    }
+    #forgivenModal h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--deep);
+      margin: 1rem 0 0.5rem;
+    }
+    #forgivenModal p {
+      color: var(--muted);
+      font-weight: 300;
+    }
+    #forgivenModal .modal-big { font-size: 4rem; }
+    #forgivenModal .btn-close-modal {
+      margin-top: 1.5rem;
+      background: var(--rose);
+      color: #fff;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.7rem 2.2rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #forgivenModal .btn-close-modal:hover { background: #d46950; }
+
+    @media (max-width: 576px) {
+      .letter-card { padding: 2.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── FLOATING PETALS ── -->
+<div id="petals" aria-hidden="true"></div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="sorry-badge">A Message From the Heart</div>
+    <h1>I'm <em>truly</em><br>sorry.</h1>
+    <p class="hero-sub">Some words aren't enough — but I had to try. Please read on.</p>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">
+    <span>↓</span>
+    scroll
+  </div>
+</section>
+
+<!-- ── HEARTBEAT MARQUEE ── -->
+<div class="heartbeat-section" aria-hidden="true">
+  <div class="heartbeat-track" id="marquee">
+    <!-- filled by JS -->
+  </div>
+</div>
+
+<!-- ── LETTER ── -->
+<section class="letter-section">
+  <div class="container">
+    <div class="letter-card fade-up">
+      <p class="letter-label">An open letter</p>
+      <h2>Hey;—</h2>
+      <div class="letter-body">
+        <p>I know you're angry, and you have every right to be. I messed up, and I own that completely. No excuses, no deflection — just me, holding up my hand and saying: <strong>I was wrong.</strong></p>
+        <p>Its First time that i have done something like this. I've been thinking about this and I realise how much I hurt you. That wasn't okay — and it's not who I want to be when it comes to someone I genuinely care about.</p>
+        
+        <p>Take all the time you need. I'll be right here, whenever you're ready. With patience which i dont have.</p>
+      </div>
+      <p class="letter-sign">—  🤍</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── REASONS ── -->
+<section class="reasons-section">
+  <div class="container">
+    <div class="text-center mb-5 fade-up">
+      <span class="section-eyebrow">What I know to be true</span>
+      <h2 class="section-title">Why this matters to me</h2>
+    </div>
+    <div class="row g-4 justify-content-center">
+      <div class="col-sm-6 col-lg-4 fade-up">
+        <div class="reason-card">
+          <div class="reason-icon">🌟</div>
+          <h3>You are zidi and have ego as well and more then me i think but</h3>
+          <p>still it will be good if you can be a bit more patient with me. and i just wanted to make you feel better after i make you feel bad.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4 fade-up" style="transition-delay:0.1s">
+        <div class="reason-card">
+          <div class="reason-icon">🔥</div>
+          <h3>If you are good human being and a true kashmiri then i hope you will forgive me and i will be happy to see you happy.</h3>
+          <p>If you will naraz with me next time then i will block you right away because you should not be angry with a girl no matter what. samjy?</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4 fade-up" style="transition-delay:0.2s">
+        <div class="reason-card">
+          <div class="reason-icon">💬</div>
+          <h3>We can talk about this but you should not be quite i mean i will be very angry with you if you are quite.</h3>
+          
+        </div>
+      </div>
+      
+      </div>
+      <div class="col-sm-6 col-lg-4 fade-up" style="transition-delay:0.4s">
+        <div class="reason-card">
+          <div class="reason-icon">🤝</div>
+          <h3>You deserve an apology</h3>
+          <p>Not a text. Not an excuse. A real, heartfelt, "I'm sorry" — and that's exactly what this is.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4 fade-up" style="transition-delay:0.5s">
+        <div class="reason-card">
+          <div class="reason-icon">🌱</div>
+          <h3>I will make something better for you next time but dont be angry.</h3>
+          <p>Ok Angry bird</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROMISES ── -->
+<section class="promise-section">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5 fade-up">
+        <span class="section-eyebrow">If you are still angry then</span>
+        <h2 class="section-title">I will be angry with you as well and never forgive you<br>understand?</h2>
+      </div>
+      <div class="col-lg-7 fade-up" style="transition-delay:0.15s">
+        <div class="promise-item">
+          <div class="promise-num">1</div>
+          <div class="promise-text">
+            <h4>I speak before i think</h4>
+            <p>May be i will make you angry again but please plz dont be angry with me.</p>
+          </div>
+        </div>
+        <div class="promise-item">
+          <div class="promise-num">2</div>
+          <div class="promise-text">
+            <h4>I will do more mistakes</h4>
+            <p>But i would't be quite like you. you are like a naraz aurat right now so be a man and dont be naraz.</p>
+          </div>
+        </div>
+        <div class="promise-item">
+          <div class="promise-num">3</div>
+          <div class="promise-text">
+            <h4>I have not done such a thing before </h4>
+            <p>So plz accept this with a happy and smiing face. writing this code makes my eyes teary you know i have sensitive eyes.</p>
+          </div>
+        </div>
+        <div class="promise-item">
+          <div class="promise-num">4</div>
+          <div class="promise-text">
+            <h4>I hope you will smile while reading this</h4>
+            <p>like meeee.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section fade-up">
+  <div class="container">
+    <div class="big-heart" aria-hidden="true">❤️</div>
+    <h2>i will not text you and you will after seeing this. ok?</h2>
+    <p>I'm ready. so do it jlde. as soon as possible</p>
+    <button class="btn-sorry" data-bs-toggle="modal" data-bs-target="#forgivenModal">
+      I will wait ✨
+    </button>
+  </div>
+</section>
+
+<!-- ── MODAL ── -->
+<div class="modal fade" id="forgivenModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-big">🎉</div>
+      <h3>You're an angry bird!</h3>
+      <p>Thank you —for taking time and reading this 🤍</p>
+      <button class="btn-close-modal" data-bs-dismiss="modal">Close & Let's Move On →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>Made with <span>♥</span> and a whole lot of sincerity &nbsp;·&nbsp;</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  /* ── Petals ── */
+  const pContainer = document.getElementById('petals');
+  const petalColors = ['#f7c5a0','#f0a080','#fde8d8','#e8826b'];
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.cssText = `
+      left: ${Math.random() * 100}vw;
+      top: ${Math.random() * -20}px;
+      width: ${12 + Math.random() * 14}px;
+      height: ${18 + Math.random() * 16}px;
+      background: ${petalColors[Math.floor(Math.random() * petalColors.length)]};
+      animation-duration: ${6 + Math.random() * 8}s;
+      animation-delay: ${Math.random() * 8}s;
+      transform: rotate(${Math.random() * 360}deg);
+      opacity: 0;
+    `;
+    pContainer.appendChild(p);
+  }
+
+  /* ── Marquee ── */
+  const words = [
+    "Sorry",
+    "Forgive me",
+    "I was wrong",
+    "You matter",
+    "My fault",
+    "I'm sorry",
+    "Please forgive",
+];
+  const track = document.getElementById('marquee');
+  const full = [...words, ...words, ...words, ...words];
+  full.forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'heartbeat-word';
+    span.textContent = w;
+    track.appendChild(span);
+    if (i < full.length - 1) {
+      const sep = document.createElement('span');
+      sep.className = 'heartbeat-sep';
+      sep.textContent = '♥';
+      track.appendChild(sep);
+    }
+  });
+
+  /* ── Scroll fade ── */
+  const els = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  els.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
